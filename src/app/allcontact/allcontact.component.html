@@ -1,0 +1,96 @@
+<div class="container-fluid">
+    <div class="row mt-3">
+        <div class="col ">
+            <!-- page title -->
+            <h3>All Contact
+                <a class="btn btn-info m-2 ms-5" routerLink="addcontact"><i class="fa-solid fa-user-plus"></i>Add
+                    New</a>
+            </h3>
+            <!-- page content -->
+            <p class="text-align:justify">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nemo ex ab rem
+                facere voluptas voluptatem
+                excepturi aut eaque, quas pariatur. Ducimus, in. Ratione accusantium harum nam praesentium amet in
+                adipisci? Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi, temporibus. Iste incidunt
+                debitis delectus nesciunt amet quis adipisci, ut recusandae corrupti quidem dicta necessitatibus
+                inventore tempora in illum eius repellendus?Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Minima cumque repellat alias voluptates minus ad, vero magnam asperiores vel amet dolor cupiditate
+                praesentium, reiciendis neque porro. Omnis quisquam facilis accusantium. </p>
+            <!-- search content -->
+            <div class="row mt-5">
+                <div class="col-lg-2 fw-bolder">
+                    search content
+                </div>
+                <div class="col-lg-6">
+                    <input [(ngModel)]="searchkey" placeholder="Type contact Name Here " type="text" class="form-control me-auto">
+                </div>
+            </div>
+            <!-- loading spinner -->
+            <div *ngIf="isLoading && allcontact.length==0" class="text-center mt-5">
+
+                <div class="spinner-border text-primary " role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+
+            </div>
+
+            <div *ngIf ="errorMsg" class="alert aler-danger m-5" role="alert">
+                {{errorMsg}}
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+<!-- contact card -->
+
+
+<div class="container mt-5">
+    <div class="row" *ngIf="!isLoading && allcontact.length>0">
+
+        <div class="col-lg-6 mb-3 " *ngFor="let contact of allcontact|filter:searchkey:'name'">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <!-- image -->
+                        <div class="col-4">
+                            <img class="img-fluid w-75" [src]=contact.photo alt="noimage">
+
+                        </div>
+                        <!-- content -->
+                        <div class="col-sm-7">
+                            <ul class="list-group">
+                                <li class="list-group-item">Name: <span class="fw-bolder">{{contact.name}}</span></li>
+                                <li class="list-group-item">Mobile: <span class="fw-bolder">{{contact.mobile}}</span>
+                                </li>
+                                <li class="list-group-item">email: <span class="fw-bolder">{{contact.email}}</span>
+                                </li>
+
+                            </ul>
+
+                        </div>
+                        <!-- actions -->
+
+                        <div class="col-sm-1 d-flex flex-column justify-content-center align-items-center mb-1">
+                            <!-- view -->
+                            <a class="btn btn-warning text-light mb-1 " routerLink="viewcontact/:{{contact.id}}"><i
+                                    class="fa-solid fa-eye"></i></a>
+
+                            <a class="btn btn-success text-light mb-1" routerLink="editcontact/:{{contact.id}}"><i
+                                    class="fa-solid fa-pen"></i></a>
+
+                            <!-- delete -->
+
+                            <a (click)="deletecontact(contact.id)" class="btn btn-danger text-light mb-1" href=""><i class="fa-solid fa-trash"></i></a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
